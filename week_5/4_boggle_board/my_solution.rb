@@ -1,24 +1,46 @@
 # U2.W5: A Nested Array to Model a Boggle Board
 
-# I worked on this challenge [by myself, with: ].
+# I worked on this challenge [by myself].
 
-boggle_board = [["b", "r", "a", "e"],
-                ["i", "o", "d", "t"],
-                ["e", "c", "l", "r"],
-                ["t", "a", "k", "e"]]
+# boggle_board = [["b", "r", "a", "e"],
+#                 ["i", "o", "d", "t"],
+#                 ["e", "c", "l", "r"],
+#                 ["t", "a", "k", "e"]]
 
 
 # Part 1: Write a method that takes a row number and returns all the elements in the row.
 
 # Pseudocode
 
+######### part 1
+## 	Write a method (get_row) that takes a row number and
+## 	and returns all elements in the row.
+
+
 # Initial Solution
+
+def get_row(row_num)
+
+boggle_board = [["b", "r", "a", "e"],
+                ["i", "o", "d", "t"],
+                ["e", "c", "l", "r"],
+                ["t", "a", "k", "e"]]
+
+	# validates input is an integer
+	return "error, input number not an integer" until row_num.is_a? Integer
+
+	return boggle_board[row_num]
+end
 
 
 # Refactored Solution
 
 
 # DRIVER TESTS GO BELOW THIS LINE
+
+(0..3).each { |e| puts "row #{e} is #{get_row(e)}"}  
+# puts "count for boggle_board array: #{boggle_board.count}"
+# boggle_board.each_index {|e| puts "row #{e} is #{get_row(e)}"}
 
 
 # Reflection 
