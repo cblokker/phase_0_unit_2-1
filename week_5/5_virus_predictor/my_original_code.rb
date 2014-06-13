@@ -15,20 +15,11 @@ class VirusPredictor
 
   ##  Takes the input parameters and assigns them to instance variables so they 
   ##  can be used by the various class methods.
-  # def initialize(state_of_origin, population_density, population, region, regional_spread)
-  #   @state = state_of_origin
-  #   @population = population
-  #   @population_density = population_density
-  #   @region = region
-  #   @next_region = regional_spread
-  # end
-  # "Alabama" => {population_density: 94.65, population: 4822023, region: 5, regional_spread: 3}
-  def initialize(state_of_origin, population_density, population, region, regional_spread)
+  def initialize(state_of_origin, population_density, population)
     @state = state_of_origin
-    @population = population
-    @population_density = population_density
-    @region = region
-    @next_region = regional_spread
+    @pop = population
+    @pop_density = population_density
+    self.virus_effects
   end
 
   ##  virus_effects calls the predicted_death and spreed_of_spread methods
@@ -36,8 +27,7 @@ class VirusPredictor
   ##  Instance variables are created for each instance of VirusPredictor that 
   ##  is created. 
   def virus_effects  #HINT: What is the SCOPE of instance variables?
-    predicted_deaths()
-    speed_of_spread()
+    puts "#{@state} will loose #{predicted_deaths()} in this outbreak and will spread across the state in #{speed_of_spread} months.\n\n"
   end
 
   ##  the following methods cannot be called from outside the VirusPredictor class.
@@ -53,36 +43,26 @@ class VirusPredictor
   ##  is why is uses the print method, so it won't have a newline. The speed_of_spread
   ##  method will return the 2nd half of the return statement, inline with this print.
   def predicted_deaths()
-      number_of_deaths = (@population * 0.05).floor if @population_density < 50
-      number_of_deaths = (@population * 0.1).floor if @population_density >= 50
-      number_of_deaths = (@population * 0.2).floor if @population_density >= 100
-      number_of_deaths = (@population * 0.3).floor if @population_density >= 150
-      number_of_deaths = (@population * 0.4).floor if @population_density >= 200
+    return case
+      when @pop_density >= 200 then (@pop * 0.4).floor
+      when @pop_density >= 150 then (@pop * 0.3).floor
+      when @pop_density >= 100 then (@pop * 0.2).floor
+      when @pop_density >=  50 then (@pop * 0.1).floor
+      else (@pop * 0.05).floor
     end
-
-    print "#{@state} will lose #{number_of_deaths} people in this outbreak"
   end
 
   ##  Called by the virus_effects method, uses if statements to determine
   ##  what to assign to the speed var. This method is passed the state var,
   ##  but does not need it.
   def speed_of_spread() #in months
-    speed = 0.0
-
-    if @population_density >= 200
-      speed += 0.5
-    elsif @population_density >= 150
-      speed += 1
-    elsif @population_density >= 100
-      speed += 1.5
-    elsif @population_density >= 50
-      speed += 2
-    else 
-      speed += 2.5
+    return case
+      when @pop_density >= 200 then 0.5
+      when @pop_density >= 150 then 1.0
+      when @pop_density >= 100 then 1.5
+      when @pop_density >=  50 then 2.0
+      when @pop_density <   50 then 2.5
     end
-
-    puts " and will spread across the state in #{speed} months.\n\n"
-
   end
 
 end
@@ -92,38 +72,11 @@ end
 # DRIVER CODE
  # initialize VirusPredictor for each state
 
-puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
-
-# alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population], STATE_DATA["Alabama"][:region], STATE_DATA["Alabama"][:regional_spread]) 
-# alabama.virus_effects
-
-# jersey = VirusPredictor.new("New Jersey", STATE_DATA["New Jersey"][:population_density], STATE_DATA["New Jersey"][:population], STATE_DATA["New Jersey"][:region], STATE_DATA["New Jersey"][:regional_spread]) 
-# jersey.virus_effects
-
-# california = VirusPredictor.new("California", STATE_DATA["California"][:population_density], STATE_DATA["California"][:population], STATE_DATA["California"][:region], STATE_DATA["California"][:regional_spread]) 
-# california.virus_effects
-
-# alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population], STATE_DATA["Alaska"][:region], STATE_DATA["Alaska"][:regional_spread]) 
-# alaska.virus_effects
-
-puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
-
-#   notes:
-# def initialize(state_of_origin, population_density, population, region, regional_spread)
-# STATE_DATA.each { |e| puts "#{e}" } # => outputs each element of STATE_DATA, which is the full state information..
-# STATE_DATA.each { |e| puts "#{e[0]}" } # => outpute STATE_DATA[0], which is the state name.
-# "Alabama" => {population_density: 94.65, population: 4822023, region: 5, regional_spread: 3},
-# STATE_DATA.each_key { |name| puts "#{name}"}
-puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
-
 ##  By using #each_key, I was able to convert the manual entry of info 
 ##  to a loop that will in turn input each element from the STATE_DATA
 ##  array.
-STATE_DATA.each_key { |name| state_name = VirusPredictor.new(name, 
-  STATE_DATA[name][:population_density], 
-  STATE_DATA[name][:population], 
-  STATE_DATA[name][:region], 
-  STATE_DATA[name][:regional_spread])
-state_name.virus_effects
+STATE_DATA.each_key { |name| VirusPredictor.new(name,
+  STATE_DATA[name][:population_density],
+  STATE_DATA[name][:population])
 }
-puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
+puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
