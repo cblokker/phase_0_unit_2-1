@@ -3,8 +3,12 @@
 # I worked on this challenge [by myself, with: ].
 
 # EXPLANATION OF require_relative
-#
-#
+###   require_relative is how you include code or data from other
+###   files. You only use the filename without the extenstion. Also,
+###   if the file is not in the same directory as your code, you need
+###   to include the path to the included file relative to your code file.
+###
+
 require_relative 'state_data'
 
 class VirusPredictor
