@@ -37,8 +37,8 @@ class VirusPredictor
   ##  Instance variables are created for each instance of VirusPredictor that 
   ##  is created. 
   def virus_effects  #HINT: What is the SCOPE of instance variables?
-    predicted_deaths(@population_density, @population, @state)
-    speed_of_spread(@population_density, @state)
+    predicted_deaths()
+    speed_of_spread()
   end
 
   ##  the following methods cannot be called from outside the VirusPredictor class.
@@ -53,7 +53,7 @@ class VirusPredictor
   ##  predicted_deaths also returns the first half of the return statements, which
   ##  is why is uses the print method, so it won't have a newline. The speed_of_spread
   ##  method will return the 2nd half of the return statement, inline with this print.
-  def predicted_deaths(population_density, population, state)
+  def predicted_deaths()
     if @population_density >= 200
       number_of_deaths = (@population * 0.4).floor
     elsif @population_density >= 150
@@ -72,7 +72,7 @@ class VirusPredictor
   ##  Called by the virus_effects method, uses if statements to determine
   ##  what to assign to the speed var. This method is passed the state var,
   ##  but does not need it.
-  def speed_of_spread(population_density, state) #in months
+  def speed_of_spread() #in months
     speed = 0.0
 
     if @population_density >= 200
