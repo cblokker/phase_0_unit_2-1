@@ -16,6 +16,14 @@ class VirusPredictor
 
   ##  Takes the input parameters and assigns them to instance variables so they 
   ##  can be used by the various class methods.
+  # def initialize(state_of_origin, population_density, population, region, regional_spread)
+  #   @state = state_of_origin
+  #   @population = population
+  #   @population_density = population_density
+  #   @region = region
+  #   @next_region = regional_spread
+  # end
+  # "Alabama" => {population_density: 94.65, population: 4822023, region: 5, regional_spread: 3}
   def initialize(state_of_origin, population_density, population, region, regional_spread)
     @state = state_of_origin
     @population = population
@@ -90,15 +98,38 @@ end
 # DRIVER CODE
  # initialize VirusPredictor for each state
 
-anything = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population], STATE_DATA["Alabama"][:region], STATE_DATA["Alabama"][:regional_spread]) 
-anything.virus_effects
+puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
 
-anything = VirusPredictor.new("New Jersey", STATE_DATA["New Jersey"][:population_density], STATE_DATA["New Jersey"][:population], STATE_DATA["New Jersey"][:region], STATE_DATA["New Jersey"][:regional_spread]) 
-anything.virus_effects
+# alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population], STATE_DATA["Alabama"][:region], STATE_DATA["Alabama"][:regional_spread]) 
+# alabama.virus_effects
 
-anything = VirusPredictor.new("California", STATE_DATA["California"][:population_density], STATE_DATA["California"][:population], STATE_DATA["California"][:region], STATE_DATA["California"][:regional_spread]) 
-anything.virus_effects
+# jersey = VirusPredictor.new("New Jersey", STATE_DATA["New Jersey"][:population_density], STATE_DATA["New Jersey"][:population], STATE_DATA["New Jersey"][:region], STATE_DATA["New Jersey"][:regional_spread]) 
+# jersey.virus_effects
 
-anything = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population], STATE_DATA["Alaska"][:region], STATE_DATA["Alaska"][:regional_spread]) 
-anything.virus_effects
+# california = VirusPredictor.new("California", STATE_DATA["California"][:population_density], STATE_DATA["California"][:population], STATE_DATA["California"][:region], STATE_DATA["California"][:regional_spread]) 
+# california.virus_effects
+
+# alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population], STATE_DATA["Alaska"][:region], STATE_DATA["Alaska"][:regional_spread]) 
+# alaska.virus_effects
+
+puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
+
+#   notes:
+# def initialize(state_of_origin, population_density, population, region, regional_spread)
+# STATE_DATA.each { |e| puts "#{e}" } # => outputs each element of STATE_DATA, which is the full state information..
+# STATE_DATA.each { |e| puts "#{e[0]}" } # => outpute STATE_DATA[0], which is the state name.
+# "Alabama" => {population_density: 94.65, population: 4822023, region: 5, regional_spread: 3},
+# STATE_DATA.each_key { |name| puts "#{name}"}
+puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
+
+##  By using #each_key, I was able to convert the manual entry of info 
+##  to a loop that will in turn input each element from the STATE_DATA
+##  array.
+STATE_DATA.each_key { |name| state_name = VirusPredictor.new(name, 
+  STATE_DATA[name][:population_density], 
+  STATE_DATA[name][:population], 
+  STATE_DATA[name][:region], 
+  STATE_DATA[name][:regional_spread])
+state_name.virus_effects
+}
 puts "-_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_--_-_-_-_-_-"
