@@ -13,7 +13,6 @@ require_relative 'state_data'
 
 class VirusPredictor
 
-
   ##  Takes the input parameters and assigns them to instance variables so they 
   ##  can be used by the various class methods.
   # def initialize(state_of_origin, population_density, population, region, regional_spread)
@@ -54,16 +53,11 @@ class VirusPredictor
   ##  is why is uses the print method, so it won't have a newline. The speed_of_spread
   ##  method will return the 2nd half of the return statement, inline with this print.
   def predicted_deaths()
-    if @population_density >= 200
-      number_of_deaths = (@population * 0.4).floor
-    elsif @population_density >= 150
-      number_of_deaths = (@population * 0.3).floor
-    elsif @population_density >= 100
-      number_of_deaths = (@population * 0.2).floor
-    elsif @population_density >= 50
-      number_of_deaths = (@population * 0.1).floor
-    else 
-      number_of_deaths = (@population * 0.05).floor
+      number_of_deaths = (@population * 0.05).floor if @population_density < 50
+      number_of_deaths = (@population * 0.1).floor if @population_density >= 50
+      number_of_deaths = (@population * 0.2).floor if @population_density >= 100
+      number_of_deaths = (@population * 0.3).floor if @population_density >= 150
+      number_of_deaths = (@population * 0.4).floor if @population_density >= 200
     end
 
     print "#{@state} will lose #{number_of_deaths} people in this outbreak"
